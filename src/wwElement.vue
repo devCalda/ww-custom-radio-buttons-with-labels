@@ -153,6 +153,10 @@ export default {
     display: flex;
     gap: 12px;
     cursor: pointer;
+    transition: background 200ms ease-in-out;
+}
+.unactiveRadio:hover {
+    background: rgb(227, 227, 227);
 }
 .unactiveRadio input {
     outline: none;
@@ -211,7 +215,7 @@ export default {
     box-shadow: inset 1em 1em white;
     cursor: pointer;
 }
-.activeRadio input::before {
+.activeRadio input:checked::before {
     transform: scale(1);
 }
 label {

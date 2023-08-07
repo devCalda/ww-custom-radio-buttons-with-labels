@@ -110,7 +110,7 @@ export default {
             const value = event.target.value;
             if (value === this.value) return;
             this.setValue(value);
-            this.$emit('trigger-event', { name: 'change', event: { domEvent: event, value } });
+            this.$emit('trigger-event', { name: 'change', event: { domEvent: event, value: [value] } }); // Only in emit wrap value in []
         },
     },
 };

@@ -1,6 +1,7 @@
 <template v-if="content">
     <div class="ww-input-radio" :style="style" ww-responsive="ww-input-radio">
-        <div v-for="(option, index) in options" :key="index" class="ww-input-radio__container" :class="{ activeRadio: option.value === value, unactiveRadio: option.value !== value }">
+        <div v-for="(option, index) in options" :key="index" class="ww-input-radio__container" :class="{ activeRadio: option.value === value, unactiveRadio: option.value !== value }"
+            @click="handleManualInput($event, option.value)">
             <wwLayoutItemContext v-if="option" :index="index" is-repeat>
                 <input
                     :id="`${wwElementState.name}-${uniqueId}-${option.label}`"
@@ -11,7 +12,6 @@
                     type="radio"
                     :name="wwElementState.name"
                     :required="content.required"
-                    @input="handleManualInput($event)"
                 />
                 <component
                     :is="isEditing ? 'div' : 'label'"
@@ -106,8 +106,8 @@ export default {
         },
     },
     methods: {
-        handleManualInput(event) {
-            const value = event.target.value;
+        handleManualInput(event, clickedValue) {
+            const value = event.target.value ?? clickedValue; // Clicked value because you can click on a div
             if (value === this.value) return;
             this.setValue(value);
             this.$emit('trigger-event', { name: 'change', event: { domEvent: event, value: [value] } }); // Only in emit wrap value in []test
@@ -165,8 +165,7 @@ export default {
     margin: 0;
     font: inherit;
     color: black;
-    width: 20px;
-    height: 20px;
+    padding: 8px;
     border:1px solid black;
     border-radius: 50%;
     transform: translateY(-0.075em);
@@ -197,8 +196,7 @@ export default {
     margin: 0;
     font: inherit;
     color: #d5d5d5;
-    width: 20px;
-    height: 20px;
+    padding: 4px;
     border:1px solid white;
     border-radius: 50%;
     transform: translateY(-0.075em);
